@@ -4,8 +4,20 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
 }
 .grid-container {
     display: grid;
-    grid-column-gap: 50px;
-    grid-row-gap: 50px;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-template-rows: 96px 96px 96px 96px 96px 96px 96px;
+    background-color:sandybrown;
+    padding: 10px;
 }
 
-grid
+.grid-item {
+    align-items: center;
+    border-radius: 50px;
+    border: solid;
+    border-color:deepskyblue;
+    border-width: 7px;
+}
+
+.grid-item:hover{
+    border-color: red;
+}
