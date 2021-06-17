@@ -4,15 +4,16 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
 }
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
-    grid-template-rows: 96px 96px 96px 96px 96px 96px 96px;
+    margin: 50px 200px 100px 360px;
+    grid-template-columns: 120px 120px 120px 120px 120px 120px 120px;
+    grid-template-rows: 120px 120px 120px 120px 120px 120px 120px;
     background-color:sandybrown;
     padding: 10px;
 }
 
 .grid-item {
     align-items: center;
-    border-radius: 50px;
+    border-radius: 90px;
     border: solid;
     border-color:deepskyblue;
     border-width: 7px;
