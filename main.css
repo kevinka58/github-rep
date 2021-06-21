@@ -1,24 +1,39 @@
 
 html, * {
 font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 .grid-container {
-    display: grid;
-    margin: 50px 200px 100px 360px;
-    grid-template-columns: 120px 120px 120px 120px 120px 120px 120px;
-    grid-template-rows: 120px 120px 120px 120px 120px 120px 120px;
+    position: absolute;
+    top: 4rem;
+    left: 50%;
+    transform: translate(-50%);
+    width: 700px;
+    height: 650px;
     background-color:sandybrown;
-    padding: 10px;
+    border: 5px solid black;
+    
+
 }
 
 .grid-item {
-    align-items: center;
-    border-radius: 90px;
-    border: solid;
-    border-color:deepskyblue;
-    border-width: 7px;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 50%;
+    border: 2px solid black;
 }
 
 .grid-item:hover{
     border-color: red;
+}
+
+.player-one {
+    background-color: blue;
+}
+
+.player-two {
+    background-color: red;
 }
