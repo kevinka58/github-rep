@@ -1,22 +1,43 @@
-/*----- constants -----*/
+// /*----- constants -----*/
 // variables that are not going to be re-assigned
 
 let gridRow = document.getElementsByTagName('tr');
 let gridCell = document.getElementsByTagName('td');
-let circle = document.getElementsByClassName('grid-item');
 const player = document.getElementsByClassName('current-player');
 const result = document.getElementById('result')
 
+const playerOption =['player1', 'player2']
+
+const token = {
+    player1: {
+        item: 1
+    },
+    player2: {
+        item: -1
+    },
+    empty: {
+        item: 0
+    }
+
+}
 
 /*----- app's state (variables) -----*/
 let player1
-let player2 
+let player2
+let winner
 
-player1Color = 'red';
-player2Color = 'yellow';
+const gameBoard = [
+    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0]
 
-let currentPlayer = 1;
-player.currentPlayer = `${player1}'s turn!`;
+]
+
+// player1Color = 'red';
+// player2Color = 'yellow';
+
+// let currentPlayer = 1;
+// player.currentPlayer = `${player1}'s turn!`;
 
 /*----- cached element references -----*/
 const p1ScoreEl = document.querySelector('#player1 h2')
@@ -24,37 +45,48 @@ const tScoreEl = document.querySelector('#tie h2')
 const p2ScoreEl = document.querySelector('#player2 h2')
 
 /*----- event listeners -----*/
-
-for( let i = 0; i < gridCell.length; i++) {
-    gridCell[i].addEventListener('click', (e) => {
-        console.log(`${e.target.parentElement.rowIndex}, ${e.target.cellIndex}`)
-    })
-}
-
-Array.prototype.forEach.call(gridCell, (cell) =>{
-    cell.addEventListener('click', colorChange);
-        cell.style.backgroundColor = 'white';
-    })
+// gridCell.addEventListener('click', function(event){
+// console.log(event.target)
+// })
+// This allows us to iterate through the rows and and respond to a click event
 
 /*----- functions -----*/
 
-function colorChange(e){
-    let column = e.target.cellIndex;
-    let row = [];
-
-    for(let i = 5; i > -1; i--){
-        if (gridRow[i].children[column].style.backgroundColor == 'white'){
-            row.push(gridRow[i].children[column]);
-            if(currentPlayer === 1){
-                row[0].style.backgroundColor = player1Color;
-                player.currentPlayer = `${player2}'s turn!`;
-                return currentPlayer = 2;
-            } else {
-                row[0].style.backgroundColor = player2Color; 
-                return currentPlayer = 1;
-                }
-            }
-        }
+function initilization() {
+    scores = {
+        player1: 0,
+        player2: 0,
+        tie: 0
     }
 
+    winner = null
+    render()
+}
+function getWinner() {
+    return 
+}
 
+
+const board = [0, 1, 0, 0, 2, 0, 0]
+function render() {
+	// every time the board state changes, invoke this function
+	gameBoard.forEach((gridCell, idx) => {
+        gridCell.addEventListener('click', function(event){
+            console.log(event.target)
+            })
+		document.querySelector(`#${idx}`).style.color = handleColor(gridCell);
+	})
+}
+function handleColor(playerSel) {
+	// returns a string for the right color of a gridcell
+	// 0 returns white
+	// 1 returns blue
+	// 2 returns red
+	if (playerSel === 1) {
+		return 'blue'
+	} else if (playerSel === 2) {
+		return 'red'
+	} else {
+		return 'white'
+	}
+}
