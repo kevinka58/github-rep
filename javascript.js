@@ -1,92 +1,124 @@
 // /*----- constants -----*/
 // variables that are not going to be re-assigned
 
-let gridRow = document.getElementsByTagName('tr');
-let gridCell = document.getElementsByTagName('td');
-const player = document.getElementsByClassName('current-player');
-const result = document.getElementById('result')
+const board = document.querySelector('.grid-container')
+const displayPlayer = document.querySelector('.current-player');
+let result = document.querySelector('#winner')
+const button = document.querySelector('button')
 
-const playerOption =['player1', 'player2']
-
-const token = {
-    player1: {
-        item: 1
-    },
-    player2: {
-        item: -1
-    },
-    empty: {
-        item: 0
-    }
-
-}
 
 /*----- app's state (variables) -----*/
-let player1
-let player2
+let currentPlayer = 1
 let winner
+let playerTurn
+// let scores
 
-const gameBoard = [
-    [0, 0, 0, 0, 0, 0, 0]
-    [0, 0, 0, 0, 0, 0, 0]
-    [0, 0, 0, 0, 0, 0, 0]
+let gameBoard = [0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0]
 
-]
 
-// player1Color = 'red';
-// player2Color = 'yellow';
+let winningArray = [ 
+[0, 1, 2, 3], [41, 40, 39, 38],[7, 8, 9, 10], 
+[34, 33, 32, 31], [14, 15, 16, 17], [27, 26, 25, 24], 
+[21, 22, 23, 24], [20, 19, 18, 17], [28, 29, 30, 31], 
+[13, 12, 11, 10], [35, 36, 37, 38], [6, 5, 4, 3], 
+[0, 7, 14, 21], [41, 34, 27, 20], [1, 8, 15, 22], 
+[40, 33, 26, 19], [2, 9, 16, 23], [39, 32, 25, 18], 
+[3, 10, 17, 24], [38, 31, 24, 17], [4, 11, 18, 25], 
+[37, 30, 23, 16], [5, 12, 19, 26], [36, 29, 22, 15], 
+[6, 13, 20, 27], [35, 28, 21, 14], [0, 8, 16, 24], 
+[41, 33, 25, 17], [7, 15, 23, 31], [34, 26, 18, 10], 
+[14, 22, 30, 38], [27, 19, 11, 3], [35, 29, 23, 17], 
+[6, 12, 18, 24], [28, 22, 16, 10], [13, 19, 25, 31], 
+[21, 15, 9, 3], [20, 26, 32, 38], [36, 30, 24, 18], 
+[5, 11, 17, 23], [37, 31, 25, 19], [4, 10, 16, 22], 
+[2, 10, 18, 26], [39, 31, 23, 15], [1, 9, 17, 25], 
+[40, 32, 24, 16], [9, 7, 25, 33], [8, 16, 24, 32], 
+[11, 7, 23, 29], [12, 18, 24, 30], [1, 2, 3, 4], 
+[5, 4, 3, 2], [8, 9, 10, 11], [12, 11, 10, 9],
+[15, 16, 17, 18], [19, 18, 17, 16], [22, 23, 24, 25], 
+[26, 25, 24, 23], [29, 30, 31, 32], [33, 32, 31, 30], 
+[36, 37, 38, 39], [40, 39, 38, 37], [7, 14, 21, 28], 
+[8, 15, 22, 29], [9, 16, 23, 30], [10, 17, 24, 31], 
+[11, 18, 25, 32], [12, 19, 26, 33], [13, 20, 27, 34] 
+]; 
 
-// let currentPlayer = 1;
-// player.currentPlayer = `${player1}'s turn!`;
 
 /*----- cached element references -----*/
-const p1ScoreEl = document.querySelector('#player1 h2')
-const tScoreEl = document.querySelector('#tie h2')
-const p2ScoreEl = document.querySelector('#player2 h2')
+// const p1ScoreEl = document.querySelector('#player1 h2')
+// const p2ScoreEl = document.querySelector('#player2 h2')
 
 /*----- event listeners -----*/
-// gridCell.addEventListener('click', function(event){
-// console.log(event.target)
-// })
+button.addEventListener('click',initilization)
+board.addEventListener('click', handleClick);
+
 // This allows us to iterate through the rows and and respond to a click event
 
 /*----- functions -----*/
 
 function initilization() {
-    scores = {
-        player1: 0,
-        player2: 0,
-        tie: 0
-    }
+     gameBoard = [0, 0, 0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0, 0, 0, 
+                  0, 0, 0, 0, 0, 0, 0, 
+                  0, 0, 0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0, 0, 0]
+    
+     currentPlayer = 1
 
-    winner = null
     render()
 }
-function getWinner() {
-    return 
+
+
+
+function checkWin() {
+for(let i = 0; i < winningArray.length; i++){
+    for(let j = 0; j < winningArray.length; j++){
+        if (gameBoard[winningArray[i][j]] == 1 && gameBoard[winningArray[i][j + 1]] == 1 && gameBoard[winningArray[i][j + 2]] == 1 && gameBoard[winningArray[i][j + 3]] == 1) {
+            result.innerHTML = 'Player 1 is the Winner!'
+        }else if(gameBoard[winningArray[i][j]] == -1 && gameBoard[winningArray[i][j + 1]] == -1 && gameBoard[winningArray[i][j + 2]] == -1 && gameBoard[winningArray[i][j + 3]] == -1) {
+            result.innerHTML = 'Player 2 is the Winner!'
+        }
+    }
+}
 }
 
 
-const board = [0, 1, 0, 0, 2, 0, 0]
+
 function render() {
 	// every time the board state changes, invoke this function
-	gameBoard.forEach((gridCell, idx) => {
-        gridCell.addEventListener('click', function(event){
-            console.log(event.target)
-            })
-		document.querySelector(`#${idx}`).style.color = handleColor(gridCell);
-	})
+	gameBoard.forEach((element, idx,) => {
+        if (element === 1) {
+            document.querySelector(`#i${idx}`).style.background = 'blue'
+        } else if (element === -1) {
+            document.querySelector(`#i${idx}`).style.background = 'red'
+        } else {
+            document.querySelector(`#i${idx}`).style.background = 'white'
+        }
+
+    })
+    // p1ScoreEl.textContent = scores.player1
+    // p2ScoreEl.textContent = scores.player2
+    checkWin()
 }
-function handleColor(playerSel) {
-	// returns a string for the right color of a gridcell
-	// 0 returns white
-	// 1 returns blue
-	// 2 returns red
-	if (playerSel === 1) {
-		return 'blue'
-	} else if (playerSel === 2) {
-		return 'red'
-	} else {
-		return 'white'
-	}
+    
+
+
+function handleClick(evt) {
+    //changing the element at the index to either 1 or 2 or 0
+   let location = evt.target.id
+   let newString = location.replace("i", '', 42)
+   gameBoard[newString] = currentPlayer
+   element = currentPlayer
+   currentPlayer *= -1
+   render()
 }
+
+
+
+
+initilization();
