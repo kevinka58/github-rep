@@ -7,7 +7,7 @@ let result = document.querySelector("#winner");
 const button = document.querySelector("button");
 
 /*----- app's state (variables) -----*/
-let currentPlayer = 1;
+let currentPlayer = 1
 let gameBoard = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
